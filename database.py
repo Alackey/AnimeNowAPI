@@ -30,10 +30,5 @@ def update_anime(anime_list):
     for anime in anime_list:
         title = anime.string.strip()
         url = "https://kissanime.to" + anime["href"]
-        print(in_db(title))
-        # add(title, url)
-
-    # for a in all_anime.find():
-    #     print(a)
-    # print(anime[16].string.strip())
-    # print(posts.find_one({"author": anime}))
+        if not in_db(title):
+            add(title, url)
