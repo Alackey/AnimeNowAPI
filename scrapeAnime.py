@@ -1,4 +1,8 @@
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from bs4 import BeautifulSoup
 import time
 
 
@@ -10,11 +14,22 @@ def main():
 
     browser.get("https://kissanime.to/AdvanceSearch")
 
-    # Wait for CloudFlare to finish
-    while (browser.title == "Please wait 5 seconds..."):
-        time.sleep(.25)
+    # Wait for CloudFlare to finish and button is clickable
+    WebDriverWait(browser, 10).until(
+        EC.element_to_be_clickable((By.ID, "btnSubmit"))
+    )
 
-    print(browser.title)
+    print("Navigated to search page. Title: ", browser.title)
+
+    # Search nothing to get all anime on one page
+    search_btn = browser.find_element_by_id("btnSubmit")
+    search_btn.click()
+
+    # Get titles and links for all anime
+    soup = BeautifulSoup(browser.page_source, "html.parser")
+    soup.select("td > a")
+
+    browser.close()
 
 
 if __name__ == "__main__":
