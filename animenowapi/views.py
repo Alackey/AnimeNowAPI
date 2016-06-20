@@ -1,5 +1,18 @@
-from animenowapi import app
+from animenowapi import app, db
+from flask import request, jsonify
 
-@app.route("/")
-def index():
-    return "Hello world"
+
+# Get anime matching query
+@app.route("/search")
+def search():
+    if request.method == "GET":
+
+        # Get anime that contain a keyword or match the given title
+        animes_found = db.search(query=request.args.get("query"))
+        
+        # Aggregate titles from animes found in database
+        titles = []
+        for anime in animes_found:
+            titles.append(anime["title"])
+
+        return jsonify({"titles": titles})
