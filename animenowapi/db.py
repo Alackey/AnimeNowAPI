@@ -9,4 +9,4 @@ all_anime = db.anime_info
 
 # Get anime containing keyword
 def search(query):
-    return all_anime.find({"title": {"$regex": query}})
+    return all_anime.find({"title": {"$regex": query, "$options": "i"}})
