@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
+import database
 import time
 
 
@@ -28,7 +29,9 @@ def main():
     # Get titles and links for all anime
     soup = BeautifulSoup(browser.page_source, "html.parser")
     anime = soup.select("td > a")
-    print(anime[16].string.strip())
+
+    # Update anime list
+    database.update_anime(anime)
 
     browser.close()
 
