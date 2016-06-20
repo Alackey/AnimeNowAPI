@@ -28,10 +28,12 @@ def main():
 
     # Get titles and links for all anime
     soup = BeautifulSoup(browser.page_source, "html.parser")
-    anime = soup.select("td > a")
+    anime_list = soup.select("td > a")
+
+    print("Got all anime HTML")
 
     # Update anime list
-    database.update_anime(anime)
+    database.update_anime(anime_list)
 
     browser.close()
 

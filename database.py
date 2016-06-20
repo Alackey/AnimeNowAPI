@@ -7,6 +7,13 @@ db = client.test
 all_anime = db.anime_info
 
 
+# Checks if the anime exists in the database
+def in_db(title):
+    if all_anime.find_one({"title": title}) is not None:
+        return True
+    return False
+
+
 # Add anime to database
 def add(title, url, alt_titles=[], episodes=[], resolution=[]):
     all_anime.insert_one({
@@ -19,11 +26,12 @@ def add(title, url, alt_titles=[], episodes=[], resolution=[]):
 
 
 # Update the anime list
-def update_anime(anime):
-    for i in range(5):
-        title = anime[i].string.strip()
-        url = "https://kissanime.to" + anime[i]["href"]
-        add(title, url)
+def update_anime(anime_list):
+    for anime in anime_list:
+        title = anime.string.strip()
+        url = "https://kissanime.to" + anime["href"]
+        print(in_db(title))
+        # add(title, url)
 
     # for a in all_anime.find():
     #     print(a)
