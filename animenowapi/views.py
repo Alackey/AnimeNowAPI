@@ -19,8 +19,8 @@ def search():
 
 
 # Get the url of an anime
-@app.route("/animeurl")
-def animeurl():
+@app.route("/videourl")
+def videourl():
     if request.method == "GET":
 
         # Get the anime information
