@@ -18,8 +18,9 @@ def search():
         return jsonify({"titles": titles})
 
 
-@app.route("/videourl")
-def videourl():
+# Get the url of an anime
+@app.route("/animeurl")
+def animeurl():
     if request.method == "GET":
 
         # Get the anime information
@@ -27,5 +28,9 @@ def videourl():
             query=request.args.get("query"),
             is_title=True
         )
+
+        # If not anime is found
+        if anime is None:
+            return jsonify({"url": "Error: Title not found", "Error": True})
 
         return jsonify({"url": anime["url"]})
