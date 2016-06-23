@@ -1,5 +1,6 @@
-from animenowapi import app, db
+from animenowapi import app, browser, db
 from flask import request, jsonify
+from selenium.webdriver.common.keys import Keys
 
 
 # Get anime matching query
@@ -32,5 +33,14 @@ def videourl():
         # If not anime is found
         if anime is None:
             return jsonify({"url": "Error: Title not found", "Error": True})
+
+        print(browser.title)
+        # Open new window for selenium browser
+        body = browser.find_element_by_tag_name("body")
+        body.send_keys(Keys.CONTROL + 'n')
+        for handle in browser.window_handles:
+            print(handle)
+        browser.switch_to_window(browser.window_handles[-1])
+        print(browser.title)
 
         return jsonify({"url": anime["url"]})
