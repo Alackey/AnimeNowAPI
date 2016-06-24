@@ -47,22 +47,6 @@ def videourl():
         while browser.title == "Please wait 5 seconds...":
             time.sleep(.1)
 
-        print(browser.title)
-        # # Open new window for selenium browser
-        # # body = browser.find_element_by_tag_name("body")
-        # # body.send_keys(Keys.CONTROL + 'n')
-        # open_window_script = 'return window.open("' + anime["url"] + '", "any", \
-        #     "height = 450, width = 800, menubar=yes,scrollbars=yes, \
-        #     toolbar=yes,location=no,resizable=yes");'
-        # #browser.switch_to_window(browser.window_handles[1])
-        # handle = browser.execute_script(open_window_script)
-        # # WebDriverWait(browser, 30).until(
-        # #     EC.presence_of_element_located((By.ID, "selectEpisode"))
-        # # )
-        # time.sleep(10)
-        # for handle in browser.window_handles:
-        #     print(handle)
-        # browser.switch_to_window(browser.window_handles[-1])
-        # print(browser.title)
+        print("Page Title:", browser.title)
 
         return jsonify({"url": anime["url"]})
