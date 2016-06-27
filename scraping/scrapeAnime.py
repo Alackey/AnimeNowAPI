@@ -33,7 +33,7 @@ def main():
     print("Got all anime HTML")
 
     # Update anime list
-    database.update_anime(anime_list)
+    db_scraping.update_anime(anime_list)
 
     browser.close()
 
