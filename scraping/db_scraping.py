@@ -32,3 +32,8 @@ def update_anime(anime_list):
         url = "https://kissanime.to" + anime["href"]
         if not in_db(title):
             add(title, url)
+
+
+# Get all anime
+def get_all():
+    return all_anime.find()
