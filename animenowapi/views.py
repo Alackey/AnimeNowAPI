@@ -5,6 +5,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from bs4 import BeautifulSoup
 import time
 
 
@@ -48,5 +49,13 @@ def videourl():
             time.sleep(.1)
 
         print("Page Title:", browser.title)
+
+        ### Test grabbing episodes
+        soup = BeautifulSoup(browser.page_source, "html.parser")
+        episodes = soup.select("td > a")
+        if 1 < len(episodes) and len(episodes) < 50:
+            for ep in episodes:
+                # print(ep.string.strip())
+                print("Href: {}", ep["href"])
 
         return jsonify({"url": anime["url"]})
